@@ -16,6 +16,7 @@ import com.junction.config.OssConfig;
 import com.junction.dto.OssSignatureResponse;
 import com.junction.service.OssService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,6 +40,7 @@ import java.util.*;
  */
 @Slf4j
 @Service
+@ConditionalOnProperty(prefix = "oss", name = "enabled", havingValue = "true")
 public class OssServiceImpl implements OssService {
 
     private static final Set<String> ALLOWED_CONTENT_TYPES = Set.of(

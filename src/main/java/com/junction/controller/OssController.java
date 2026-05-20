@@ -6,6 +6,7 @@ import com.junction.service.OssService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "OSS 签名", description = "前端直传所需的临时签名")
 @RestController
+@ConditionalOnProperty(prefix = "oss", name = "enabled", havingValue = "true")
 @RequestMapping("/api/oss")
 public class OssController {
 

@@ -2,6 +2,7 @@
 <configuration>
     <!-- 日志路径，可通过环境变量 JUNCTION_LOG_PATH 覆盖 -->
     <property name="LOG_PATH" value="${JUNCTION_LOG_PATH:-/var/log/junction}"/>
+    <property name="DEV_LOG_PATH" value="${JUNCTION_LOG_PATH:-logs}"/>
 
     <!-- 日志格式 -->
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
@@ -49,9 +50,9 @@
 
     <!-- 测试环境日志文件 - 按日期+大小滚动 -->
     <appender name="DEV_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/app-dev.log</file>
+        <file>${DEV_LOG_PATH}/app-dev.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/app-dev.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${DEV_LOG_PATH}/app-dev.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>100MB</maxFileSize>
             <maxHistory>7</maxHistory>
             <totalSizeCap>1GB</totalSizeCap>
@@ -63,12 +64,12 @@
     </appender>
 
     <appender name="DEV_ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/error-dev.log</file>
+        <file>${DEV_LOG_PATH}/error-dev.log</file>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/error-dev.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${DEV_LOG_PATH}/error-dev.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxFileSize>100MB</maxFileSize>
             <maxHistory>7</maxHistory>
             <totalSizeCap>500MB</totalSizeCap>

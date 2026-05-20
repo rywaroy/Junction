@@ -3,12 +3,14 @@ package com.junction.config;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
+@ConditionalOnProperty(prefix = "oss", name = "enabled", havingValue = "true")
 @ConfigurationProperties(prefix = "oss")
 public class OssConfig {
 
