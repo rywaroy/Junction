@@ -48,7 +48,7 @@
         </encoder>
     </appender>
 
-    <!-- 测试环境日志文件 - 按日期+大小滚动 -->
+    <!-- 开发环境日志文件 - 按日期+大小滚动 -->
     <appender name="DEV_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${DEV_LOG_PATH}/app-dev.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -88,6 +88,17 @@
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="DEV_FILE"/>
             <appender-ref ref="DEV_ERROR_FILE"/>
+        </root>
+    </springProfile>
+
+    <!-- 测试环境：控制台 + 文件，便于 systemd journal 和日志文件同时排查 -->
+    <springProfile name="test">
+        <logger name="com.junction" level="DEBUG"/>
+        <logger name="com.junction.mapper" level="TRACE"/>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
         </root>
     </springProfile>
 

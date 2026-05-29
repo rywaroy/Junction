@@ -1,0 +1,83 @@
+server:
+  port: 8080
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:junction_test}?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: ${DB_USER:junction_test}
+    password: ${DB_PASS:changeme-test}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      idle-timeout: 300000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: ${REDIS_DB:0}
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 20
+          max-idle: 10
+          min-idle: 5
+          max-wait: 3000ms
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.junction.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+# ==========================================================
+# 开发/测试环境：放宽限流，便于联调与压测
+# ==========================================================
+rate-limit:
+  ip-limit-per-second: 1000
+  ip-window-seconds: 1
+  user-limit-per-minute: 600
+  user-window-seconds: 60
+  max-registrations-per-ip-per-hour: 1000
+  registration-window-seconds: 3600
+  auto-cheater-threshold: 10000
+  rate-limit-count-window-seconds: 3600
+
+internal-api:
+  api-key: ${INTERNAL_API_KEY:dev-internal-key}
+
+wechat:
+  mini:
+    app-id: ${WECHAT_APP_ID:}
+    app-secret: ${WECHAT_APP_SECRET:}
+
+oss:
+  enabled: ${OSS_ENABLED:false}
+  endpoint: ${OSS_ENDPOINT:oss-cn-beijing.aliyuncs.com}
+  access-key-id: ${OSS_ACCESS_KEY_ID:}
+  access-key-secret: ${OSS_ACCESS_KEY_SECRET:}
+  bucket-name: ${OSS_BUCKET:}
+  region: ${OSS_REGION:cn-beijing}
+  role-arn: ${OSS_ROLE_ARN:}
+  role-session-name: oss-upload-session
+  duration-seconds: 3600
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+logging:
+  level:
+    com.junction: debug

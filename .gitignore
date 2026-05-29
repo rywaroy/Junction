@@ -36,3 +36,8 @@ build/
 application-local.yml
 *.log
 logs/
+
+.codex
+
+junction-test.service
+junction-prod.service
